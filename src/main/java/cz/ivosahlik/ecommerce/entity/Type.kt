@@ -8,11 +8,11 @@ class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private var id: Int? = null
+    var id: Int? = null
 
     @Column(name = "Name")
-    private var name: String? = null
+    var name: String? = null
 
     @OneToMany(mappedBy = "type", fetch = FetchType.LAZY)
-    private val prodcts: List<Product>? = null
+    val products: List<Product>? = null
 }

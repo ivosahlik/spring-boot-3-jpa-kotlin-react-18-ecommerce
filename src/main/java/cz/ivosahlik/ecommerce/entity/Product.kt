@@ -4,29 +4,29 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "Product")
-class Product {
+class Product(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private var id: Int? = null
+    var id: Int? = null,
 
     @Column(name = "Name")
-    private var name: String? = null
+    var name: String? = null,
 
-    @Column(name = "Description")
-    private var description: String? = null
+    @Column(length = 4096, nullable = true, name = "Description")
+    var description: String? = null,
 
     @Column(name = "Price")
-    private var price: Long? = null
+    var price: Long? = null,
 
     @Column(name = "PictureUrl")
-    private var pictureUrl: String? = null
+    var pictureUrl: String? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductBrandId", referencedColumnName = "Id")
-    private val brand: Brand? = null
+    val brand: Brand? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductTypeId", referencedColumnName = "Id")
-    private val type: Type? = null
-}
+    val type: Type? = null
+)
