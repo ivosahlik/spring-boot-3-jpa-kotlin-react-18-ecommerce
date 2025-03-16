@@ -24,7 +24,7 @@ class OrderServiceImpl (
 
     private val log = KotlinLogging.logger {}
 
-    override fun getOrderById(orderId: Int): OrderResponse {
+    override fun getOrderById(orderId: Int): OrderResponse? {
         val optionalOrder: Optional<Order> = orderRepository.findById(orderId)
         return optionalOrder.map(orderMapper::orderToOrderResponse).orElse(null)
     }
