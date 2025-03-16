@@ -20,7 +20,7 @@ class OrdersController(
     fun getOrderById(@PathVariable orderId: Int): ResponseEntity<OrderResponse> {
         val order: OrderResponse? = orderService.getOrderById(orderId)
         if (order == null) {
-            log.warn("Order not found by id $orderId")
+            log.warn { "Order not found by id $orderId" }
             return ResponseEntity.notFound().build()
         }
         return ResponseEntity.ok(order)
