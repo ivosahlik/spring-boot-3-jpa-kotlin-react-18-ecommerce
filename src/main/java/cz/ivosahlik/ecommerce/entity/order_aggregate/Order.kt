@@ -8,20 +8,22 @@ import java.time.LocalDateTime
 data class Order(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "Id")
     var id: Int? = null,
+
     @Column(name = "Basket_Id")
     var basketId: String? = null,
 
     @Embedded
-    val shippingAddress: ShippingAddress? = null,
+    var shippingAddress: ShippingAddress? = null,
 
     @Column(name = "Order_Date")
     var orderDate: LocalDateTime? = LocalDateTime.now(),
 
+    @Column(name = "Order_ITEMS")
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "order")
-    val orderItems: List<OrderItem>? = null,
+    var orderItems: List<OrderItem>? = null,
 
     @Column(name = "Sub_Total")
-    var subTotal: Double? = null,
+    var subTotal: Long? = null,
 
     @Column(name = "Delivery_Fee")
     var deliveryFee: Long? = null,
@@ -31,6 +33,7 @@ data class Order(
     var orderStatus: OrderStatus = OrderStatus.PENDING,
 ) {
     fun getTotal() : Double = getSubTotal() + getDeliveryFee()
-    fun getSubTotal() : Double = subTotal ?: 0.0
+    fun getSubTotal() : Double = subTotal?.toDouble() ?: 0.0
     fun getDeliveryFee() : Long = deliveryFee ?: 0L
+
 }

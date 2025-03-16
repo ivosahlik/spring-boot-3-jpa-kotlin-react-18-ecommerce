@@ -4,7 +4,7 @@ import jakarta.persistence.Embeddable
 
 @Embeddable
 data class ProductItemOrdered(
-    val productId: Int? = null,
-    val name: String? = null,
-    val pictureUrl: String? = null
+    var productId: Int? = null,
+    var name: String? = null,
+    var pictureUrl: String? = null
 )

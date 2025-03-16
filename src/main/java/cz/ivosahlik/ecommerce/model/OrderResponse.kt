@@ -5,12 +5,12 @@ import cz.ivosahlik.ecommerce.entity.order_aggregate.ShippingAddress
 import java.time.LocalDateTime
 
 data class OrderResponse(
-    private val id: Int? = null,
-    val basketId: String? = null,
-    val shippingAddress: ShippingAddress? = null,
-    val subTotal: Long? = null,
-    val deliveryFee: Long? = null,
-    val total: Double? = null,
-    val orderDate: LocalDateTime? = null,
-    val orderStatus: OrderStatus? = null
+    var id: Int? = null,
+    var basketId: String? = null,
+    var shippingAddress: ShippingAddress? = null,
+    var subTotal: Long? = null,
+    var deliveryFee: Long? = null,
+    var total: Long? = null,
+    var orderDate: LocalDateTime? = null,
+    var orderStatus: OrderStatus? = null
 )
