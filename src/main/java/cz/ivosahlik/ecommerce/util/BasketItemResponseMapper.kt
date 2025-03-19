@@ -1,7 +1,9 @@
 package cz.ivosahlik.ecommerce.util
 
+import cz.ivosahlik.ecommerce.entity.Basket
 import cz.ivosahlik.ecommerce.entity.BasketItem
 import cz.ivosahlik.ecommerce.model.BasketItemResponse
+import cz.ivosahlik.ecommerce.model.BasketResponse
 import org.springframework.stereotype.Component
 
 @Component
@@ -16,6 +18,11 @@ class BasketItemResponseMapper {
         productBrand = basketItem.productBrand,
         productType = basketItem.productType,
         quantity = basketItem.quantity
+    )
+
+    fun convertToBasketResponse(basket: Basket, basketItemResponses: List<BasketItemResponse>) = BasketResponse(
+        id = basket.id,
+        items = basketItemResponses
     )
 
 }

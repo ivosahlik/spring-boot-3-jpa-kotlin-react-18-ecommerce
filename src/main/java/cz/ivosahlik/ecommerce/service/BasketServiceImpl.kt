@@ -1,31 +1,24 @@
 package cz.ivosahlik.ecommerce.service
 
 import cz.ivosahlik.ecommerce.entity.Basket
-import cz.ivosahlik.ecommerce.entity.BasketItem
-import cz.ivosahlik.ecommerce.model.BasketItemResponse
 import cz.ivosahlik.ecommerce.model.BasketResponse
 import cz.ivosahlik.ecommerce.repository.BasketRepository
 import cz.ivosahlik.ecommerce.util.BasketItemResponseMapper
-import cz.ivosahlik.ecommerce.util.BasketResponseMapper
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
 
 @Service
 class BasketServiceImpl(
     val basketRepository: BasketRepository,
-    val basketResponseMapper: BasketResponseMapper,
     val basketItemResponseMapper: BasketItemResponseMapper
 ) : BasketService {
 
     private val log = KotlinLogging.logger {}
 
     override fun getAllBaskets(): List<BasketResponse?> {
-        log.info { "Fetching All Baskets" }
-        val basketResponses = basketRepository.findAll()
+        return basketRepository.findAll()
             .map { basket: Basket -> this.convertToBasketResponse(basket) }
             .toList()
-        log.info { "Fetched all Baskets" }
-        return basketResponses
     }
 
     override fun getBasketById(basketId: String): BasketResponse? {
@@ -57,12 +50,13 @@ class BasketServiceImpl(
         if (basket == null) {
             return null
         }
-        val itemResponses = basket.items.stream()
-            .map { basketItem: BasketItem -> this.convertToBasketItemResponse(basketItem) }
+        if (basket.items == null) {
+            return null
+        }
+        val basketItemResponses = basket.items.stream()
+            .map { basketItemResponse -> basketItemResponseMapper.convertToBasketItemResponse(basketItemResponse) }
             .toList()
-        return basketResponseMapper.convertToBasketResponse(basket, itemResponses)
+        return basketItemResponseMapper.convertToBasketResponse(basket, basketItemResponses)
     }
 
-    private fun convertToBasketItemResponse(basketItem: BasketItem): BasketItemResponse =
-        basketItemResponseMapper.convertToBasketItemResponse(basketItem)
 }

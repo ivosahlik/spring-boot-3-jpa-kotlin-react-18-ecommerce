@@ -49,7 +49,7 @@ class OrdersController(
     }
 
     @DeleteMapping("/{orderId}")
-    fun deleteOrder(@PathVariable orderId: Int): ResponseEntity<Void> {
+    fun deleteOrder(@PathVariable orderId: Int): ResponseEntity<Unit> {
         orderService.deleteOrder(orderId)
         return ResponseEntity.noContent().build()
     }
