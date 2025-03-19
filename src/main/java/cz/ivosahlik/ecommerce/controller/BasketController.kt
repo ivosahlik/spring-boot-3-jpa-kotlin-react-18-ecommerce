@@ -17,7 +17,7 @@ class BasketController(
     val basketResponseMapper: BasketResponseMapper
 ) {
 
-    @GetMapping("/")
+    @GetMapping
     fun getAllBaskets(): List<BasketResponse?> {
         return basketService.getAllBaskets()
     }
