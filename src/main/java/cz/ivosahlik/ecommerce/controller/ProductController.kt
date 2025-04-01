@@ -31,15 +31,15 @@ class ProductController(
     fun getProducts(
         @RequestParam(name = "page", defaultValue = "0") page: Int,
         @RequestParam(name = "size", defaultValue = "10") size: Int,
-        @RequestParam(name = "keyword", required = false) keyword: String,
-        @RequestParam(name = "brandId", required = false) brandId: Int,
-        @RequestParam(name = "typeId", required = false) typeId: Int,
+        @RequestParam(name = "keyword", required = false) keyword: String?,
+        @RequestParam(name = "brandId", required = false) brandId: Int?,
+        @RequestParam(name = "typeId", required = false) typeId: Int?,
         @RequestParam(name = "sort", defaultValue = "name") sort: String,
         @RequestParam(name = "order", defaultValue = "asc") order: String
     ): ResponseEntity<Page<ProductResponse>> {
         val pageable = getPageable(page, size, sort, order)
-        val productResponses: Page<ProductResponse> = productService.getProducts(pageable, brandId, typeId, keyword)
-        return ResponseEntity(productResponses, HttpStatus.OK)
+        val productResponses = productService.getProducts(pageable, brandId, typeId, keyword)
+        return ResponseEntity<Page<ProductResponse>>(productResponses, HttpStatus.OK)
     }
 
     private fun getPageable(page: Int, size: Int, sort: String, order: String): Pageable {

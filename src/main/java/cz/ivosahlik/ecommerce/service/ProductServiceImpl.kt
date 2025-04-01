@@ -25,7 +25,10 @@ class ProductServiceImpl(
         return "Not yet implemented, productId = $productId"
     }
 
-    override fun getProducts(pageable: Pageable, brandId: Int, typeId: Int, keyword: String): Page<ProductResponse> {
+    override fun getProducts(pageable: Pageable,
+                             brandId: Int?,
+                             typeId: Int?,
+                             keyword: String?): Page<ProductResponse> {
         val spec = getProductSpecification(brandId, typeId, keyword)
         return productRepository
             .findAll(spec, pageable)
